@@ -1,10 +1,12 @@
-package com.example.registerapp.fragments
+package com.example.registerapp.fragments.main
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.registerapp.R
 import com.example.registerapp.databinding.FragmentMainBinding
@@ -12,6 +14,7 @@ import com.example.registerapp.objects.User
 import com.example.registerapp.utils.*
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -20,6 +23,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        register()
+    }
+
+    private fun register() {
         with(binding) {
             button.setOnClickListener {
                 val secondNameIsValid =
@@ -47,20 +54,22 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 )
 
                 if (secondNameIsValid && nameIsValid && patronymicIsValid && emailIsValid && passwordIsValid) {
-                    val email = getText(textInputLayoutEmail)
-                    val name = getText(textInputLayoutName)
-                    val lastName = getText(textInputLayoutLastName)
-                    val password = getText(textInputLayoutPassword)
+                    val email = getTextFromTextLayout(textInputLayoutEmail)
+                    val name = getTextFromTextLayout(textInputLayoutName)
+                    val lastName = getTextFromTextLayout(textInputLayoutLastName)
+                    val password = getTextFromTextLayout(textInputLayoutPassword)
 
                     val user = User(email, name, lastName, password)
-                    viewModel.registerUser(user)
+                    lifecycleScope.launch {
+                        val isOk = viewModel.registerUser(user)
+                        if (isOk) {
+                            val action = MainFragmentDirections.actionMainFragment2ToAuthFragment()
+                            findNavController().navigate(action)
+                        }
+                    }
                 }
             }
         }
-    }
-
-    private fun getText(layout: TextInputLayout): String {
-        return layout.editText?.text.toString()
     }
 
     @SuppressLint("ResourceType")

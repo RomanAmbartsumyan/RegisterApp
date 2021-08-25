@@ -1,4 +1,4 @@
-package com.example.registerapp.fragments
+package com.example.registerapp.fragments.main
 
 import android.content.Context
 import com.example.registerapp.connection.Api
@@ -6,20 +6,21 @@ import com.example.registerapp.objects.ItemRegisterUser
 import com.example.registerapp.objects.Request
 import com.example.registerapp.objects.RequestToServer
 import com.example.registerapp.objects.User
+import com.tree.rh.ctlib.CT
 import dagger.hilt.android.qualifiers.ApplicationContext
+import timber.log.Timber
 import javax.inject.Inject
 
 class MainFragmentRepository @Inject constructor(
-    @ApplicationContext context: Context,
+    @ApplicationContext val context: Context,
     private val api: Api
 ) {
-    suspend fun registerUser(user: User) {
+    suspend fun registerUser(user: User): Boolean {
         with(user) {
-            try {
+            return try {
                 api.registerUser(
                     RequestToServer(
                         ItemRegisterUser(
-                            request =
                             Request(
                                 raw =
                                 "{ \"email\":\"$email\", \"firstname\":\"$firstName\", \"lastname\":\"$lastName\", \"password\":\"$password\"}"
@@ -27,8 +28,11 @@ class MainFragmentRepository @Inject constructor(
                         )
                     )
                 )
+                true
             } catch (ex: Exception) {
-                println(ex)
+                Timber.e(ex)
+                CT.failed2(context, ex.toString())
+                false
             }
         }
     }

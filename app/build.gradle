@@ -96,4 +96,6 @@ dependencies {
 
     //Logs
     implementation 'com.jakewharton.timber:timber:4.7.1'
+
+    implementation 'com.github.shivam301296:Android-CustomToast:1.0.1'
 }

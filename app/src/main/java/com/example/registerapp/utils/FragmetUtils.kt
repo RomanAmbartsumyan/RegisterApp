@@ -79,3 +79,7 @@ fun Fragment.addRepeatPasswordChangeListener(
         }
     }
 }
+
+fun Fragment.getTextFromTextLayout(layout: TextInputLayout): String {
+    return layout.editText?.text.toString()
+}

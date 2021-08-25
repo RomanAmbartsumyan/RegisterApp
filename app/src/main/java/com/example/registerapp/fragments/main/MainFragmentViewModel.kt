@@ -1,11 +1,9 @@
-package com.example.registerapp.fragments
+package com.example.registerapp.fragments.main
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.registerapp.objects.User
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -14,9 +12,7 @@ class MainFragmentViewModel @Inject constructor(
     private val repository: MainFragmentRepository
 ) : AndroidViewModel(application) {
 
-    fun registerUser(user: User) {
-        viewModelScope.launch {
-            repository.registerUser(user)
-        }
+    suspend fun registerUser(user: User): Boolean {
+        return repository.registerUser(user)
     }
 }
