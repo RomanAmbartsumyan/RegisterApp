@@ -10,4 +10,7 @@
     <string name="password">Пароль</string>
     <string name="repeat_password">Повторите пароль</string>
     <string name="registration">Регистрация</string>
+    <string name="required_field">обязательное поле</string>
+    <string name="incorrect_email">некорректный пароль</string>
+    <string name="passwords_are_not_the_same">пароли не совпадают</string>
 </resources>
