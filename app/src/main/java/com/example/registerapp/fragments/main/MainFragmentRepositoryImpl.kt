@@ -6,7 +6,7 @@ import com.example.registerapp.objects.ItemRegisterUser
 import com.example.registerapp.objects.Request
 import com.example.registerapp.objects.RequestToServer
 import com.example.registerapp.objects.User
-import com.tree.rh.ctlib.CT
+import com.example.registerapp.utils.toastEx
 import dagger.hilt.android.qualifiers.ApplicationContext
 import timber.log.Timber
 import javax.inject.Inject
@@ -30,9 +30,10 @@ class MainFragmentRepositoryImpl @Inject constructor(
                 ).isSuccessful
             } catch (ex: Exception) {
                 Timber.e(ex)
-                CT.failed2(context, ex.toString())
+                toastEx(context, ex)
                 false
             }
         }
     }
+
 }
