@@ -21,6 +21,10 @@ class AuthFragment : Fragment(R.layout.fragment_auth) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        checkAuth()
+    }
+
+    private fun checkAuth() {
         with(binding) {
             buttonAuth.setOnClickListener {
                 val emailIsValid = validEmail(textInputLayoutEmail)
