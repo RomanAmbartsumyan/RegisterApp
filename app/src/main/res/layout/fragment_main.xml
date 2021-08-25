@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainFragment">
+    tools:context=".fragments.MainFragment">
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutSecondName"
+        android:id="@+id/textInputLayoutLastName"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextSecondName"
+            android:id="@+id/editTextLastName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/second_name" />
@@ -34,7 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutSecondName">
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutLastName">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextName"

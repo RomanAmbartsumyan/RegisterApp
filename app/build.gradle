@@ -73,7 +73,7 @@ dependencies {
     //Retrofit
     def retrofitVersion = '2.9.0'
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
     implementation "com.squareup.okhttp3:logging-interceptor:4.8.0"
 
     //Dagger Hilt
@@ -93,4 +93,7 @@ dependencies {
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
 
     implementation 'com.android.support:multidex:1.0.3'
+
+    //Logs
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 }

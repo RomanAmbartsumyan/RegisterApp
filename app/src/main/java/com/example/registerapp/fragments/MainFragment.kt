@@ -1,23 +1,29 @@
-package com.example.registerapp
+package com.example.registerapp.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.registerapp.R
 import com.example.registerapp.databinding.FragmentMainBinding
+import com.example.registerapp.objects.User
 import com.example.registerapp.utils.*
 import com.google.android.material.textfield.TextInputLayout
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainFragment : Fragment(R.layout.fragment_main) {
     private val binding: FragmentMainBinding by viewBinding()
+    private val viewModel: MainFragmentViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
             button.setOnClickListener {
                 val secondNameIsValid =
-                    validField(textInputLayoutSecondName)
+                    validField(textInputLayoutLastName)
                 val nameIsValid = validField(textInputLayoutName)
                 val patronymicIsValid = validField(textInputLayoutPatronymic)
                 val emailIsValid = validEmail(textInputLayoutEmail)
@@ -29,7 +35,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                                 textInputLayoutRepeatPassword
                             )
 
-                addTextChangeListener(textInputLayoutSecondName)
+                addTextChangeListener(textInputLayoutLastName)
                 addTextChangeListener(textInputLayoutName)
                 addTextChangeListener(textInputLayoutPatronymic)
                 addEmailChangeListener(textInputLayoutEmail)
@@ -39,8 +45,22 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     textInputLayoutPassword,
                     textInputLayoutRepeatPassword
                 )
+
+                if (secondNameIsValid && nameIsValid && patronymicIsValid && emailIsValid && passwordIsValid) {
+                    val email = getText(textInputLayoutEmail)
+                    val name = getText(textInputLayoutName)
+                    val lastName = getText(textInputLayoutLastName)
+                    val password = getText(textInputLayoutPassword)
+
+                    val user = User(email, name, lastName, password)
+                    viewModel.registerUser(user)
+                }
             }
         }
+    }
+
+    private fun getText(layout: TextInputLayout): String {
+        return layout.editText?.text.toString()
     }
 
     @SuppressLint("ResourceType")

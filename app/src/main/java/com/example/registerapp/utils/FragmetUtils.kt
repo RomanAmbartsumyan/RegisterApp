@@ -16,26 +16,27 @@ fun Fragment.getStringRes(@LayoutRes res: Int): String {
 fun Fragment.validField(layout: TextInputLayout): Boolean {
     return if (layout.editText?.text!!.isBlank()) {
         layout.error = getString(R.string.required_field)
-        true
+        false
     } else {
         layout.error = null
-        false
+        true
     }
 }
 
 @SuppressLint("ResourceType")
 fun Fragment.validEmail(layout: TextInputLayout): Boolean {
     val text = layout.editText?.text!!
-    return if (text.isBlank() || Patterns.EMAIL_ADDRESS.matcher(text).matches()) {
+    return if (text.isBlank()) {
         layout.error = getString(R.string.required_field)
-        true
+        false
     } else {
         if (!Patterns.EMAIL_ADDRESS.matcher(text).matches()) {
             layout.error = getStringRes(R.string.incorrect_email)
+            false
         } else {
             layout.error = null
+            true
         }
-        false
     }
 }
 
