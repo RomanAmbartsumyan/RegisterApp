@@ -27,8 +27,7 @@ class MainFragmentRepository @Inject constructor(
                             )
                         )
                     )
-                )
-                true
+                ).isSuccessful
             } catch (ex: Exception) {
                 Timber.e(ex)
                 CT.failed2(context, ex.toString())

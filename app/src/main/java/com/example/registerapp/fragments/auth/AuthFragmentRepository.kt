@@ -24,9 +24,8 @@ class AuthFragmentRepository @Inject constructor(
                             Request("{ \"email\":\"$email\", \"password\":\"$password\"}")
                         )
                     )
-                )
+                ).isSuccessful
             }
-            true
         } catch (ex: Exception) {
             Timber.e(ex)
             CT.failed2(context, ex.toString())
